@@ -1,6 +1,6 @@
 package com.example.contactbookapi.controller;
 
-import com.example.contactbookapi.models.Contact;
+import com.example.contactbookapi.model.Contact;
 import com.example.contactbookapi.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,12 @@ import java.util.List;
 
 @Controller
 public class ContactController {
-    @Autowired
-    private ContactService contactService;
+
+    private final ContactService contactService;
+
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
+    }
 
     @GetMapping
     public ResponseEntity<List<Contact>> allContacts(){

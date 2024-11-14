@@ -1,7 +1,7 @@
 package com.example.contactbookapi.service;
 
 import com.example.contactbookapi.DAO.ContactRepository;
-import com.example.contactbookapi.models.Contact;
+import com.example.contactbookapi.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +11,12 @@ import java.util.List;
 
 @Service
 public class ContactService {
-    @Autowired
-    private ContactRepository contactRepository;
+
+    private final ContactRepository contactRepository;
+
+    public ContactService(ContactRepository contactRepository) {
+        this.contactRepository = contactRepository;
+    }
 
     public ResponseEntity<List<Contact>> allContacts() {
         List<Contact> contacts = contactRepository.findAll();
@@ -30,6 +34,7 @@ public class ContactService {
     }
 
     public ResponseEntity<Contact> createContact(Contact contact) {
+        System.out.println("ContactService");
         return new ResponseEntity<>(contactRepository.save(contact),HttpStatus.CREATED);
     }
 
